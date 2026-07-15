@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}Dashboard{% endblock %} — Admin</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="dash-shell">
+  <aside class="dash-sidebar">
+    <div class="dash-brand">dashboard<span>.admin</span></div>
+    <nav class="dash-nav">
+      <a href="{{ url_for('dashboard_index') }}" class="{{ 'is-active' if request.endpoint == 'dashboard_index' else '' }}">■ Ringkasan</a>
+      <a href="{{ url_for('dashboard_projects') }}" class="{{ 'is-active' if request.endpoint in ['dashboard_projects','add_project','edit_project'] else '' }}">■ Proyek</a>
+      <a href="{{ url_for('dashboard_profile') }}" class="{{ 'is-active' if request.endpoint == 'dashboard_profile' else '' }}">■ Profil</a>
+      <a href="{{ url_for('dashboard_messages') }}" class="{{ 'is-active' if request.endpoint == 'dashboard_messages' else '' }}">■ Pesan Masuk</a>
+    </nav>
+    <div class="dash-foot">
+      <div class="user-tag">logged in as {{ session.get('username', '') }}</div>
+      <a href="{{ url_for('index') }}" class="view-site-link">↗ lihat situs publik</a><br>
+      <a href="{{ url_for('logout') }}" class="view-site-link">→ logout</a>
+    </div>
+  </aside>
+
+  <main class="dash-main">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="flash-stack" style="padding: 0 0 20px;">
+          {% for category, message in messages %}
+            <div class="flash flash-{{ category }}">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+</div>
+
+<script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>
