@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}Kontak{% endblock %}
+{% block titlebar_path %}/ contact.py{% endblock %}
+
+{% block content %}
+<div class="eyebrow">hubungi-saya</div>
+<h1 style="margin-bottom:34px;">Kontak</h1>
+
+<div class="contact-grid">
+  <form method="POST" action="{{ url_for('contact') }}">
+    <div class="form-group">
+      <label for="name">Nama</label>
+      <input class="form-control" type="text" id="name" name="name" placeholder="Nama lengkap Anda" required>
+    </div>
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input class="form-control" type="email" id="email" name="email" placeholder="email@contoh.com" required>
+    </div>
+    <div class="form-group">
+      <label for="message">Pesan</label>
+      <textarea class="form-control" id="message" name="message" placeholder="Tulis pesan Anda di sini..." required></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Kirim Pesan →</button>
+  </form>
+
+  <div>
+    <h3>Informasi Kontak</h3>
+    {% if profile.email %}
+    <div class="contact-info-item"><span>email</span>{{ profile.email }}</div>
+    {% endif %}
+    {% if profile.github_url %}
+    <div class="contact-info-item"><span>github</span><a href="{{ profile.github_url }}" target="_blank" rel="noopener" class="card-link">{{ profile.github_url }}</a></div>
+    {% endif %}
+    {% if profile.linkedin_url %}
+    <div class="contact-info-item"><span>linkedin</span><a href="{{ profile.linkedin_url }}" target="_blank" rel="noopener" class="card-link">{{ profile.linkedin_url }}</a></div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
