@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}{{ project.title }}{% endblock %}
+{% block titlebar_path %}/ portfolio.py / {{ project.id }}{% endblock %}
+
+{% block content %}
+<a href="{{ url_for('portfolio') }}" class="back-link">← kembali ke portofolio</a>
+
+<div class="detail-hero">
+  <img src="{{ url_for('static', filename='uploads/' + project.image_file) if project.image_file != 'default-project.png' else url_for('static', filename='img/default-project.svg') }}" alt="{{ project.title }}">
+</div>
+
+<div class="eyebrow">detail-proyek</div>
+<h1>{{ project.title }}</h1>
+
+<div class="tag-row">
+  {% for tech in project.tech_list() %}
+  <span class="tag">{{ tech }}</span>
+  {% endfor %}
+</div>
+
+<p style="max-width: 70ch; font-size: 15.5px;">{{ project.description }}</p>
+
+<div class="detail-links">
+  {% if project.github_link %}
+  <a href="{{ project.github_link }}" target="_blank" rel="noopener" class="btn btn-outline">GitHub Repository →</a>
+  {% endif %}
+  {% if project.live_link %}
+  <a href="{{ project.live_link }}" target="_blank" rel="noopener" class="btn btn-primary">Lihat Live →</a>
+  {% endif %}
+</div>
+
+<p class="form-hint">Ditambahkan pada {{ project.created_at.strftime('%d %B %Y') }}</p>
+{% endblock %}
