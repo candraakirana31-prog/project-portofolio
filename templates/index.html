@@ -7,11 +7,11 @@
   <div>
     <div class="hero-code">
       <span class="cm"># {{ profile.headline }}</span><br>
-      <span class="kw">class</span> <span class="fn">{{ profile.name.replace(' ', '') }}</span>:<br>
+      <span class="kw">class</span> <span class="fn">CandraKirana</span>:<br>
       &nbsp;&nbsp;<span class="kw">def</span> <span class="fn">__init__</span>(self):<br>
       &nbsp;&nbsp;&nbsp;&nbsp;self.role = <span class="str">"{{ profile.headline }}"</span>
     </div>
-    <h1 class="hero-name">{{ profile.name }}<span class="cursor-blink"></span></h1>
+    <h1 class="hero-name">Candra Kirana<span class="cursor-blink"></span></h1>
     <div class="hero-headline">{{ profile.headline }}</div>
     <p class="hero-about">{{ profile.about }}</p>
     <div class="hero-actions">
@@ -20,7 +20,7 @@
     </div>
   </div>
   <div class="hero-portrait">
-    <img src="{{ url_for('static', filename='uploads/' + profile.photo) if profile.photo != 'default-profile.png' else url_for('static', filename='img/default-profile.svg') }}" alt="{{ profile.name }}">
+    <img src="{{ url_for('static', filename='uploads/' + profile.photo) if profile.photo != 'default-profile.png' else url_for('static', filename='img/default-profile.svg') }}" alt="Candra Kirana">
   </div>
 </section>
 

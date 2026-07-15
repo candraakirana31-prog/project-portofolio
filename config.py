@@ -20,3 +20,5 @@ class Config:
     # SANGAT DISARANKAN untuk mengganti password ini lewat dashboard setelah login pertama kali.
     DEFAULT_ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', 'admin')
     DEFAULT_ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'admin123')
+    # Nama situs yang tampil di header; ubah sesuai kebutuhan
+    SITE_NAME = os.environ.get('SITE_NAME', 'Portofolio')

@@ -226,6 +226,44 @@ p { color: var(--muted); margin: 0 0 14px; }
 }
 
 /* =========================================================================
+   Site header
+   ========================================================================= */
+.site-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 34px;
+  border-bottom: 1px solid var(--border);
+  background: transparent;
+}
+.site-brand a {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+}
+.site-nav {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+.site-nav a {
+  font-family: var(--font-display);
+  font-size: 13px;
+  color: var(--muted);
+  padding: 8px 10px;
+  border-radius: 8px;
+  transition: color .12s ease, background .12s ease;
+}
+.site-nav a:hover { color: var(--text); background: rgba(255,255,255,0.02); }
+
+@media (max-width: 720px) {
+  .site-header { flex-direction: column; align-items: stretch; padding: 12px 18px; }
+  .site-nav { justify-content: space-around; padding-top: 8px; }
+}
+
+/* =========================================================================
    Buttons
    ========================================================================= */
 .btn {

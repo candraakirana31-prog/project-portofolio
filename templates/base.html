@@ -1,33 +1,52 @@
-{% extends 'base.html' %}
-{% block title %}Tentang Saya{% endblock %}
-{% block titlebar_path %}/ about.py{% endblock %}
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Situs Saya{% endblock %} — Portofolio</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
 
-{% block content %}
-<div class="eyebrow">tentang-saya</div>
-<h1 style="margin-bottom:34px;">Tentang Saya</h1>
+  <header class="site-header">
+    <div class="site-brand"><a href="{{ url_for('index') }}">Candra Kirana</a></div>
+    <nav class="site-nav">
+      <a href="{{ url_for('index') }}">Beranda</a>
+      <a href="{{ url_for('about') }}">Tentang</a>
+      <a href="{{ url_for('portfolio') }}">Portofolio</a>
+      <a href="{{ url_for('contact') }}">Kontak</a>
+      {% if session.get('user_id') %}
+        <a href="{{ url_for('dashboard_index') }}">Dashboard</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+      {% else %}
+        <a href="{{ url_for('login') }}">Admin Login</a>
+      {% endif %}
+    </nav>
+  </header>
 
-<div class="about-grid">
-  <div>
-    <div class="about-photo">
-      <img src="{{ url_for('static', filename='uploads/' + profile.photo) if profile.photo != 'default-profile.png' else url_for('static', filename='img/default-profile.svg') }}" alt="{{ profile.name }}">
+  <main class="site-main">
+    <div class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="flash-stack">
+            {% for category, message in messages %}
+              <div class="flash flash-{{ category }}">{{ message }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      {% block titlebar_path %}{% endblock %}
+      {% block content %}{% endblock %}
     </div>
-  </div>
+  </main>
 
-  <div>
-    <h2>{{ profile.name }}</h2>
-    <p style="color: var(--cyan); font-family: var(--font-display); font-size: 13px; margin-bottom: 20px;">{{ profile.headline }}</p>
-    <p>{{ profile.about }}</p>
+  <footer class="site-footer">
+    <div class="container">&copy; Candra Kirana — {{ current_year }}</div>
+  </footer>
 
-    <h3 style="margin-top: 34px;">Keahlian &amp; Skill</h3>
-    {% if skills %}
-    <div class="skill-list">
-      {% for skill in skills %}
-      <span class="skill-pill">{{ skill.name }}</span>
-      {% endfor %}
-    </div>
-    {% else %}
-    <div class="empty-state">Belum ada skill yang ditambahkan.</div>
-    {% endif %}
-  </div>
-</div>
-{% endblock %}
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

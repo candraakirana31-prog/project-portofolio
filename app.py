@@ -9,6 +9,7 @@ from werkzeug.utils import secure_filename
 
 from config import Config
 from models import db, User, Profile, Skill, Project, Message
+from datetime import datetime
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -61,6 +62,20 @@ def get_profile():
         db.session.add(profile)
         db.session.commit()
     return profile
+
+
+@app.context_processor
+def inject_globals():
+    """Inject common template variables: site name, current year, and profile."""
+    try:
+        profile = get_profile()
+    except Exception:
+        profile = None
+    return {
+        'site_name': app.config.get('SITE_NAME', 'Portofolio'),
+        'current_year': datetime.utcnow().year,
+        'profile': profile,
+    }
 
 
 # ---------------------------------------------------------------------------
