@@ -1,0 +1,53 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Ringkasan{% endblock %}
+
+{% block content %}
+<div class="dash-header">
+  <h1>Ringkasan Dashboard</h1>
+</div>
+
+<div class="stat-grid">
+  <div class="stat-card">
+    <div class="stat-label">total proyek</div>
+    <div class="stat-value">{{ total_projects }}</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">pesan belum dibaca</div>
+    <div class="stat-value">{{ unread_messages }}</div>
+  </div>
+  <div class="stat-card">
+    <div class="stat-label">total pesan masuk</div>
+    <div class="stat-value">{{ total_messages }}</div>
+  </div>
+</div>
+
+<div class="panel-box">
+  <h3 style="margin-bottom: 18px;">Aksi Cepat</h3>
+  <div style="display:flex; gap:12px; flex-wrap:wrap;">
+    <a href="{{ url_for('add_project') }}" class="btn btn-primary">+ Tambah Proyek</a>
+    <a href="{{ url_for('dashboard_profile') }}" class="btn btn-outline">Edit Profil</a>
+    <a href="{{ url_for('dashboard_messages') }}" class="btn btn-outline">Lihat Pesan Masuk</a>
+  </div>
+</div>
+
+<h3 style="margin-bottom: 16px;">Pesan Terbaru</h3>
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr><th>Nama</th><th>Email</th><th>Status</th><th>Tanggal</th></tr>
+    </thead>
+    <tbody>
+      {% for msg in recent_messages %}
+      <tr>
+        <td>{{ msg.name }}</td>
+        <td>{{ msg.email }}</td>
+        <td>{% if msg.is_read %}<span class="badge badge-read">Sudah dibaca</span>{% else %}<span class="badge badge-unread">Belum dibaca</span>{% endif %}</td>
+        <td>{{ msg.created_at.strftime('%d/%m/%Y') }}</td>
+      </tr>
+      {% else %}
+      <tr><td colspan="4" style="color: var(--muted);">Belum ada pesan masuk.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
