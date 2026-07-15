@@ -1,0 +1,48 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Edit Proyek{% endblock %}
+
+{% block content %}
+<div class="dash-header">
+  <h1>Edit Proyek</h1>
+  <a href="{{ url_for('dashboard_projects') }}" class="view-site-link">← kembali ke daftar proyek</a>
+</div>
+
+<div class="panel-box" style="max-width: 640px;">
+  <img id="preview-img" class="table-thumb" style="width:100%; height:180px; border-radius:6px; margin-bottom:20px;"
+       src="{{ url_for('static', filename='uploads/' + project.image_file) if project.image_file != 'default-project.png' else url_for('static', filename='img/default-project.svg') }}" alt="">
+
+  <form method="POST" action="{{ url_for('edit_project', project_id=project.id) }}" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="title">Judul Proyek</label>
+      <input class="form-control" type="text" id="title" name="title" value="{{ project.title }}" required>
+    </div>
+    <div class="form-group">
+      <label for="description">Deskripsi</label>
+      <textarea class="form-control" id="description" name="description" required>{{ project.description }}</textarea>
+    </div>
+    <div class="form-group">
+      <label for="technologies">Teknologi (pisahkan dengan koma)</label>
+      <input class="form-control" type="text" id="technologies" name="technologies" value="{{ project.technologies or '' }}">
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="github_link">Link GitHub</label>
+        <input class="form-control" type="url" id="github_link" name="github_link" value="{{ project.github_link or '' }}">
+      </div>
+      <div class="form-group">
+        <label for="live_link">Link Live Demo</label>
+        <input class="form-control" type="url" id="live_link" name="live_link" value="{{ project.live_link or '' }}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="image">Ganti Gambar (opsional)</label>
+      <input class="form-control" type="file" id="image" name="image" accept=".png,.jpg,.jpeg,.gif,.webp" data-preview="preview-img">
+      <div class="form-hint">Kosongkan jika tidak ingin mengganti gambar. Maksimal 5 MB.</div>
+    </div>
+    <div style="display:flex; gap:12px;">
+      <button type="submit" class="btn btn-primary">Simpan Perubahan →</button>
+      <a href="{{ url_for('dashboard_projects') }}" class="btn btn-outline">Batal</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
