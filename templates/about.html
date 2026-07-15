@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Tentang Saya{% endblock %}
+{% block titlebar_path %}/ about.py{% endblock %}
+
+{% block content %}
+<div class="eyebrow">tentang-saya</div>
+<h1 style="margin-bottom:34px;">Tentang Saya</h1>
+
+<div class="about-grid">
+  <div>
+    <div class="about-photo">
+      <img src="{{ url_for('static', filename='uploads/' + profile.photo) if profile.photo != 'default-profile.png' else url_for('static', filename='img/default-profile.svg') }}" alt="{{ profile.name }}">
+    </div>
+  </div>
+
+  <div>
+    <h2>{{ profile.name }}</h2>
+    <p style="color: var(--cyan); font-family: var(--font-display); font-size: 13px; margin-bottom: 20px;">{{ profile.headline }}</p>
+    <p>{{ profile.about }}</p>
+
+    <h3 style="margin-top: 34px;">Keahlian &amp; Skill</h3>
+    {% if skills %}
+    <div class="skill-list">
+      {% for skill in skills %}
+      <span class="skill-pill">{{ skill.name }}</span>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">Belum ada skill yang ditambahkan.</div>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
