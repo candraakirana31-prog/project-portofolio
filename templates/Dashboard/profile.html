@@ -1,0 +1,71 @@
+{% extends 'dashboard/base.html' %}
+{% block title %}Manajemen Profil{% endblock %}
+
+{% block content %}
+<div class="dash-header">
+  <h1>Manajemen Profil</h1>
+</div>
+
+<div class="panel-box" style="max-width: 640px;">
+  <h3 style="margin-bottom: 18px;">Data Profil</h3>
+  <img id="preview-photo" class="table-thumb" style="width:120px; height:120px; border-radius:8px; margin-bottom:20px; object-fit:cover;"
+       src="{{ url_for('static', filename='uploads/' + profile.photo) if profile.photo != 'default-profile.png' else url_for('static', filename='img/default-profile.svg') }}" alt="">
+
+  <form method="POST" action="{{ url_for('dashboard_profile') }}" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="name">Nama Lengkap</label>
+      <input class="form-control" type="text" id="name" name="name" value="{{ profile.name }}" required>
+    </div>
+    <div class="form-group">
+      <label for="headline">Headline / Tagline Profesi</label>
+      <input class="form-control" type="text" id="headline" name="headline" value="{{ profile.headline }}">
+    </div>
+    <div class="form-group">
+      <label for="about">Tentang Saya</label>
+      <textarea class="form-control" id="about" name="about">{{ profile.about }}</textarea>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input class="form-control" type="email" id="email" name="email" value="{{ profile.email or '' }}">
+      </div>
+      <div class="form-group">
+        <label for="github_url">URL GitHub</label>
+        <input class="form-control" type="url" id="github_url" name="github_url" value="{{ profile.github_url or '' }}">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="linkedin_url">URL LinkedIn</label>
+      <input class="form-control" type="url" id="linkedin_url" name="linkedin_url" value="{{ profile.linkedin_url or '' }}">
+    </div>
+    <div class="form-group">
+      <label for="photo">Foto Profil</label>
+      <input class="form-control" type="file" id="photo" name="photo" accept=".png,.jpg,.jpeg,.gif,.webp" data-preview="preview-photo">
+      <div class="form-hint">Kosongkan jika tidak ingin mengganti foto. Maksimal 5 MB.</div>
+    </div>
+    <button type="submit" class="btn btn-primary">Simpan Profil →</button>
+  </form>
+</div>
+
+<div class="panel-box" style="max-width: 640px;">
+  <h3 style="margin-bottom: 18px;">Skill / Keahlian</h3>
+
+  {% if profile.skills %}
+  <div class="skill-list" style="margin-bottom: 22px;">
+    {% for skill in profile.skills %}
+    <form method="POST" action="{{ url_for('delete_skill', skill_id=skill.id) }}" data-confirm="Hapus skill '{{ skill.name }}'?" style="display:inline-flex; align-items:center; gap:6px;">
+      <span class="skill-pill">{{ skill.name }}</span>
+      <button type="submit" class="btn btn-sm btn-danger" style="padding: 5px 8px;">✕</button>
+    </form>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state" style="margin-bottom: 22px;">Belum ada skill.</div>
+  {% endif %}
+
+  <form method="POST" action="{{ url_for('add_skill') }}" style="display:flex; gap:10px;">
+    <input class="form-control" type="text" name="skill_name" placeholder="Contoh: Python, Flask, SQL" required>
+    <button type="submit" class="btn btn-outline">+ Tambah</button>
+  </form>
+</div>
+{% endblock %}
