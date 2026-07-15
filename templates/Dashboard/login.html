@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}Login Admin{% endblock %}
+{% block titlebar_path %}/ login.py{% endblock %}
+
+{% block content %}
+<div class="login-wrap">
+  <div class="login-box">
+    <div class="eyebrow">autentikasi</div>
+    <h1>Login Dashboard</h1>
+    <p style="margin-bottom: 24px;">Masuk untuk mengelola konten portofolio.</p>
+
+    <form method="POST" action="{{ url_for('login') }}">
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input class="form-control" type="text" id="username" name="username" required autofocus>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input class="form-control" type="password" id="password" name="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Login →</button>
+    </form>
+  </div>
+</div>
+{% endblock %}
