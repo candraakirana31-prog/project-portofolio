@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Beranda{% endblock %}
+{% block titlebar_path %}/ home.py{% endblock %}
+
+{% block content %}
+<section class="hero">
+  <div>
+    <div class="hero-code">
+      <span class="cm"># {{ profile.headline }}</span><br>
+      <span class="kw">class</span> <span class="fn">{{ profile.name.replace(' ', '') }}</span>:<br>
+      &nbsp;&nbsp;<span class="kw">def</span> <span class="fn">__init__</span>(self):<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;self.role = <span class="str">"{{ profile.headline }}"</span>
+    </div>
+    <h1 class="hero-name">{{ profile.name }}<span class="cursor-blink"></span></h1>
+    <div class="hero-headline">{{ profile.headline }}</div>
+    <p class="hero-about">{{ profile.about }}</p>
+    <div class="hero-actions">
+      <a href="{{ url_for('portfolio') }}" class="btn btn-primary">Lihat Portofolio →</a>
+      <a href="{{ url_for('contact') }}" class="btn btn-outline">Hubungi Saya</a>
+    </div>
+  </div>
+  <div class="hero-portrait">
+    <img src="{{ url_for('static', filename='uploads/' + profile.photo) if profile.photo != 'default-profile.png' else url_for('static', filename='img/default-profile.svg') }}" alt="{{ profile.name }}">
+  </div>
+</section>
+
+<section class="section">
+  <div class="section-head">
+    <div>
+      <div class="eyebrow">proyek-terbaru</div>
+      <h2>Karya Terbaru</h2>
+    </div>
+    <a href="{{ url_for('portfolio') }}" class="card-link">Lihat semua →</a>
+  </div>
+
+  {% if projects %}
+  <div class="grid grid-3">
+    {% for project in projects %}
+    <div class="card">
+      <div class="card-thumb">
+        <img src="{{ url_for('static', filename='uploads/' + project.image_file) if project.image_file != 'default-project.png' else url_for('static', filename='img/default-project.svg') }}" alt="{{ project.title }}">
+      </div>
+      <div class="card-body">
+        <h3>{{ project.title }}</h3>
+        <p>{{ project.description[:100] }}{% if project.description|length > 100 %}...{% endif %}</p>
+        <div class="tag-row">
+          {% for tech in project.tech_list()[:3] %}
+          <span class="tag">{{ tech }}</span>
+          {% endfor %}
+        </div>
+        <a href="{{ url_for('project_detail', project_id=project.id) }}" class="card-link">Lihat detail →</a>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+  {% else %}
+  <div class="empty-state">Belum ada proyek. Tambahkan lewat dashboard admin.</div>
+  {% endif %}
+</section>
+{% endblock %}
