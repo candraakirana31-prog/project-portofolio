@@ -4,12 +4,12 @@ BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 
 class Config:
-    # Ganti SECRET_KEY ini dengan nilai acak yang kuat sebelum deploy ke production
     SECRET_KEY = os.environ.get('SECRET_KEY', 'ganti-kunci-rahasia-ini-sebelum-deploy')
 
-    SQLALCHEMY_DATABASE_URI = os.environ.get(
-        'DATABASE_URL', 'sqlite:///' + os.path.join(BASE_DIR, 'portfolio.db')
-    )
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL')
+    if SQLALCHEMY_DATABASE_URI and SQLALCHEMY_DATABASE_URI.startswith("postgres://"):
+        SQLALCHEMY_DATABASE_URI = SQLALCHEMY_DATABASE_URI.replace("postgres://", "postgresql://", 1)
+
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static', 'uploads')
