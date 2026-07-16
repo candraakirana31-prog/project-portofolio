@@ -379,6 +379,11 @@ def init_db():
         db.session.commit()
 
 
-if __name__ == '__main__':
+@app.before_request
+def initialize_app_on_first_request():
+    # Membuat fungsi ini hanya berjalan sekali saja
+    app.before_request_funcs[None].remove(initialize_app_on_first_request)
     init_db()
+
+if __name__ == '__main__':
     app.run(debug=True)
