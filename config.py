@@ -19,10 +19,9 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     
     UPLOAD_FOLDER = os.path.join(BASE_DIR, 'static', 'uploads')
-    MAX_CONTENT_LENGTH = 5 * 1024 * 1024  # Batas upload 5 MB
+    MAX_CONTENT_LENGTH = 5 * 1024 * 1024
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
     
-    # Akun admin default
-    DEFAULT_ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', 'Candrakirana')
-    DEFAULT_ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'candrakirana31')
+    DEFAULT_ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', 'admin')
+    DEFAULT_ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'admin123')
     SITE_NAME = os.environ.get('SITE_NAME', 'Portofolio')
