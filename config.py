@@ -22,6 +22,6 @@ class Config:
     MAX_CONTENT_LENGTH = 5 * 1024 * 1024
     ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
     
-    DEFAULT_ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', 'admin')
-    DEFAULT_ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'admin123')
+    DEFAULT_ADMIN_USERNAME = os.environ.get('ADMIN_USERNAME', 'Candra Kirana')
+    DEFAULT_ADMIN_PASSWORD = os.environ.get('ADMIN_PASSWORD', 'candrakiranaa31')
     SITE_NAME = os.environ.get('SITE_NAME', 'Portofolio')
